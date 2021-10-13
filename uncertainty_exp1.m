@@ -1,5 +1,6 @@
 % sources of Uncertainty:
-% ruler, thermometer, DAQ
+% ruler, thermometer, DAQ, room, building, university
+% the last 3 have yet to be implemented though
 res_ruler = 1; %mm
 res_thermometer = 1; %celsius
 
