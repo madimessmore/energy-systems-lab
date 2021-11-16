@@ -5,7 +5,8 @@ format long;
 
 % static variables
 voltage = ones(19,1)*119; % volts
-bar_length = 0.24; % meters
+bar_length = ones(19,1)*0.24; % meters
+gravity_accel = ones(19,1)*9.810; %m/s^2
 
 % data sets
 weight = dlmread('weights.txt');
@@ -13,14 +14,19 @@ current = dlmread('current.txt');
 
 n = length(weight);
 
-printf("     ======================================================================\n")
-printf("     Voltage (V)    |       Current (A)        |    Calculated Power (W)\n")
-printf("     --------       |       --------           |    -------------------\n")
+printf("     =============================================================================================\n")
+printf("     Voltage (V)    |       Current (A)        |       Torque (n*m)       |     Calculated Power (W)\n")
+printf("     --------       |       --------           |       --------           |    -------------------\n")
 
 for i = 1:n
   calc_power(i) = voltage(i)*current(i);
-  printf("    %.4f        |        %.4f            |        %.4f\n",voltage(i),current(i),calc_power(i))
+  torque_grams(i) = weight(i)*gravity_accel(i)*bar_length(i); %g*m^2/s^2
+  torque(i) = torque_grams(i)/1000; % N*m
+  printf("    %.4f        |        %.4f            |        %.4f            |        %.4f\n",voltage(i),current(i),torque(i),calc_power(i))
 endfor
+
+printf("     =============================================================================================\n")
+
 
 % trendline equations
 x = weight;
@@ -40,6 +46,7 @@ xlabel("Weight Added (grams)")
 ylabel("Current (A)")
 legend('Current', "x*(7.92*10^-5) + 0.735")
 hold off
+##print -dpng figure1.png
 
 figure(2)
 hold on
@@ -51,4 +58,4 @@ xlabel('Weight Added (grams)')
 ylabel('Calculated Power (W)')
 legend('Power', "x*(9.47*10^-3)+87.3")
 hold off
-
+##print -dpng figure2.png
