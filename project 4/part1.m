@@ -59,3 +59,14 @@ ylabel('Calculated Power (W)')
 legend('Power', "x*(9.47*10^-3)+87.3")
 hold off
 ##print -dpng figure2.png
+
+figure(3)
+hold on
+grid minor on
+plot(torque,calc_power,'ro','linewidth',3)
+title("Calculated Power as a Function of Weight Added")
+xlabel('Weight Added (grams)')
+ylabel('Calculated Power (W)')
+legend('Power')
+hold off
+##print -dpng figure3.png
