@@ -7,6 +7,7 @@ format long;
 voltage = ones(19,1)*119; % volts
 bar_length = ones(19,1)*0.24; % meters
 gravity_accel = ones(19,1)*9.810; %m/s^2
+friction_coeff = 0.3;
 
 % data sets
 weight = dlmread('weights.txt');
@@ -64,9 +65,20 @@ figure(3)
 hold on
 grid minor on
 plot(torque,calc_power,'ro','linewidth',3)
-title("Calculated Power as a Function of Weight Added")
-xlabel('Weight Added (grams)')
+title("Calculated Power as a Function of Torque")
+xlabel('Torque (N*m)')
 ylabel('Calculated Power (W)')
 legend('Power')
 hold off
 ##print -dpng figure3.png
+
+figure(4)
+hold on
+grid minor on
+scatter(torque,current, 'b', 'linewidth', 3)
+title("Current as a Function of Torque")
+xlabel("Torque (N*m)")
+ylabel("Current (A)")
+legend('Current')
+hold off
+##print -dpng figure4.png
